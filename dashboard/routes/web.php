@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/dashboard', 'DashboardController@index');
-Route::get('/issues', 'DashboardController@getIssues');
-Route::post('/api/issue/update', 'DashboardController@update');
+Route::get('/', 'Api\DashboardController@index');
+Route::get('/issues', 'Api\DashboardController@getIssues');
+Route::post('/api/issue/update', 'Api\DashboardController@update');
