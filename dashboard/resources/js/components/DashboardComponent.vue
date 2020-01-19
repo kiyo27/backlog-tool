@@ -1,11 +1,16 @@
 <template>
     <div class="container-fluid">
-        <div class="overlay" :class="{ 'is-open': isOpen }"></div>
+        <div :class="{ 'overlay': isOverlay }"></div>
         <div class="row">
             <div class="col sidenav">
                 <Sidenav></Sidenav>
             </div>
             <div class="col-10">
+                <div class="row">
+                    <IssueFilter
+                        :categories="categoryList"
+                    ></IssueFilter>
+                </div>
                 <div class="row">
                     <IssueList
                         :issueList="tasksTodo"
@@ -38,16 +43,19 @@
 <script>
 import IssueList from './IssueList'
 import Sidenav from './Sidenav'
+import IssueFilter from './IssueFilter'
 
 export default {
     components: {
         IssueList,
         Sidenav,
+        IssueFilter,
     },
     data() {
         return {
             issues: [],
-            isOpen: true
+            isOverlay: true,
+            categoryList: [],
         }
     },
     mounted() {
@@ -57,12 +65,13 @@ export default {
         fetchIssues: function() {
             axios.get('/issues').then(response => {
                 this.issues = response.data
-                this.isOpen = false
+                this.isOverlay = false
+                this.categories
             })
         },
         changeStatus: function(event) {
             if (window.confirm(`課題を${event.status}に移動しますか？`)) {
-                this.isOpen = true
+                this.isOverlay = true
                 axios.post('/api/issue/update', {
                     taskId: event.taskId,
                     status: event.status
@@ -99,6 +108,18 @@ export default {
             return this.issues.filter(function(issue) {
                 return issue.status.id === 3
             })
+        },
+
+        categories: function() {
+            if (this.issues === []) {
+                return []
+            }
+            
+            this.issues.forEach(element => {
+                if (element.category[0] !== undefined && this.categoryList.indexOf(element.category[0].name) == -1) {
+                    this.categoryList.push({name: element.category[0].name, id: element.category[0].id})
+                }
+            })
         }
     }
 }
@@ -129,12 +150,9 @@ export default {
     height: 100%;
     background: rgba(0, 0, 0, .7);
     opacity: 0;
-    visibility: hidden;
+    visibility: visible;
     transition: .3s linear;
+    opacity: 1;
 }
 
-.overlay.is-open {
-    opacity: 1;
-    visibility: visible;
-}
 </style>

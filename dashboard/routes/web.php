@@ -18,3 +18,4 @@
 Route::get('/', 'Api\DashboardController@index');
 Route::get('/issues', 'Api\DashboardController@getIssues');
 Route::post('/api/issue/update', 'Api\DashboardController@update');
+Route::get('/api/categories', 'Api\DashboardController@getCategories');
