@@ -1,26 +1,34 @@
 <template>
     <div class="container-fluid">
-        <div class="overlay" v-bind:class="{ 'is-open': isOpen }"></div>
+        <div class="overlay" :class="{ 'is-open': isOpen }"></div>
         <div class="row">
             <div class="col sidenav">
                 <Sidenav></Sidenav>
             </div>
             <div class="col-10">
                 <div class="row">
-                    <Open :openList="tasksTodo"
+                    <IssueList
+                        :issueList="tasksTodo"
+                        issueStatus="Open"
+                        nextStatus="wip"
                         @refresh="fetchIssues"
                         @move="changeStatus($event)"
-                    ></Open>
-                    <WorkInProgress
-                        :wipList="tasksWorkInProgress"
+                    ></IssueList>
+                    <IssueList
+                        :issueList="tasksWorkInProgress"
+                        issueStatus="WIP"
+                        nextStatus="done"
+                        backStatus="open"
                         @refresh="fetchIssues"
                         @move="changeStatus($event)"
-                    ></WorkInProgress>
-                    <Done
-                        :doneList="tasksDone"
+                    ></IssueList>
+                    <IssueList
+                        :issueList="tasksDone"
+                        issueStatus="Done"
+                        backStatus="wip"
                         @refresh="fetchIssues"
                         @move="changeStatus($event)"
-                    ></Done>
+                    ></IssueList>
                 </div>
             </div>
         </div>
@@ -28,16 +36,12 @@
 </template>
 
 <script>
-import WorkInProgress from './WorkInProgress'
-import Done from './Done'
-import Open from './Open'
+import IssueList from './IssueList'
 import Sidenav from './Sidenav'
 
 export default {
     components: {
-        WorkInProgress,
-        Done,
-        Open,
+        IssueList,
         Sidenav,
     },
     data() {
