@@ -1,5 +1,6 @@
 <template>
     <div class="container-fluid">
+        <div class="overlay" v-bind:class="{ 'is-open': isOpen }"></div>
         <div class="row">
             <div class="col sidenav">
                 <Sidenav></Sidenav>
@@ -41,7 +42,8 @@ export default {
     },
     data() {
         return {
-            issues: []
+            issues: [],
+            isOpen: true
         }
     },
     mounted() {
@@ -51,10 +53,12 @@ export default {
         fetchIssues: function() {
             axios.get('/issues').then(response => {
                 this.issues = response.data
+                this.isOpen = false
             })
         },
         changeStatus: function(event) {
             if (window.confirm(`課題を${event.status}に移動しますか？`)) {
+                this.isOpen = true
                 axios.post('/api/issue/update', {
                     taskId: event.taskId,
                     status: event.status
@@ -110,5 +114,23 @@ export default {
 
 .sidenav {
     padding-left: 0;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .7);
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s linear;
+}
+
+.overlay.is-open {
+    opacity: 1;
+    visibility: visible;
 }
 </style>

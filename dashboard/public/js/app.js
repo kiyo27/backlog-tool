@@ -1895,6 +1895,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -1908,7 +1909,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      issues: []
+      issues: [],
+      isOpen: true
     };
   },
   mounted: function mounted() {
@@ -1920,12 +1922,14 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/issues').then(function (response) {
         _this.issues = response.data;
+        _this.isOpen = false;
       });
     },
     changeStatus: function changeStatus(event) {
       var _this2 = this;
 
       if (window.confirm("\u8AB2\u984C\u3092".concat(event.status, "\u306B\u79FB\u52D5\u3057\u307E\u3059\u304B\uFF1F"))) {
+        this.isOpen = true;
         axios.post('/api/issue/update', {
           taskId: event.taskId,
           status: event.status
@@ -6690,7 +6694,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".kanban__item {\n  padding: 10px 10px 0 10px;\n}\n.kanban__item:last-child {\n  padding-bottom: 10px;\n}\n.sidenav {\n  padding-left: 0;\n}", ""]);
+exports.push([module.i, ".kanban__item {\n  padding: 10px 10px 0 10px;\n}\n.kanban__item:last-child {\n  padding-bottom: 10px;\n}\n.sidenav {\n  padding-left: 0;\n}\n.overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 3;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.7);\n  opacity: 0;\n  visibility: hidden;\n  -webkit-transition: 0.3s linear;\n  transition: 0.3s linear;\n}\n.overlay.is-open {\n  opacity: 1;\n  visibility: visible;\n}", ""]);
 
 // exports
 
@@ -38297,6 +38301,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "overlay", class: { "is-open": _vm.isOpen } }),
+    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col sidenav" }, [_c("Sidenav")], 1),
       _vm._v(" "),
@@ -51330,8 +51336,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/kiyo/Development/dashboard/project/dashboard/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/kiyo/Development/dashboard/project/dashboard/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/kiyo/Development/dashboard/dashboard/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/kiyo/Development/dashboard/dashboard/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
