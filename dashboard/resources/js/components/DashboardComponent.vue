@@ -66,7 +66,6 @@ export default {
             axios.get('/issues').then(response => {
                 this.issues = response.data
                 this.isOverlay = false
-                this.categories
             })
         },
         changeStatus: function(event) {
@@ -110,17 +109,6 @@ export default {
             })
         },
 
-        categories: function() {
-            if (this.issues === []) {
-                return []
-            }
-            
-            this.issues.forEach(element => {
-                if (element.category[0] !== undefined && this.categoryList.indexOf(element.category[0].name) == -1) {
-                    this.categoryList.push({name: element.category[0].name, id: element.category[0].id})
-                }
-            })
-        }
     }
 }
 </script>

@@ -1934,7 +1934,6 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/issues').then(function (response) {
         _this.issues = response.data;
         _this.isOverlay = false;
-        _this.categories;
       });
     },
     changeStatus: function changeStatus(event) {
@@ -1977,22 +1976,6 @@ __webpack_require__.r(__webpack_exports__);
 
       return this.issues.filter(function (issue) {
         return issue.status.id === 3;
-      });
-    },
-    categories: function categories() {
-      var _this3 = this;
-
-      if (this.issues === []) {
-        return [];
-      }
-
-      this.issues.forEach(function (element) {
-        if (element.category[0] !== undefined && _this3.categoryList.indexOf(element.category[0].name) == -1) {
-          _this3.categoryList.push({
-            name: element.category[0].name,
-            id: element.category[0].id
-          });
-        }
       });
     }
   }
@@ -38384,10 +38367,10 @@ var render = function() {
             staticClass: "custom-select mr-sm-2",
             attrs: { id: "inlineFormCustomSelect" }
           },
-          _vm._l(_vm.categories, function(option) {
+          _vm._l(_vm.categories, function(option, index) {
             return _c(
               "option",
-              { key: option.id, domProps: { value: option.value } },
+              { key: index, domProps: { value: option.value } },
               [
                 _vm._v(
                   "\n                " + _vm._s(option.name) + "\n            "
