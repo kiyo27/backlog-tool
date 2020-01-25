@@ -19,11 +19,13 @@ class BacklogClient implements IssueRepository
         ));
     }
 
+    public function getInstance()
+    {
+        return $this->backlog;
+    }
+
     public function getAllIssues()
     {
-        // $parameter = [
-        //     'statusId' => [ 1 ]
-        // ];
         return $this->backlog->issues->load([]);
     }
 

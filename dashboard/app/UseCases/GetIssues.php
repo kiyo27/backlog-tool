@@ -14,7 +14,7 @@ class GetIssues
         $this->issueRepo = $repo;
     }
 
-    public function __invoke()
+    public function __invoke($request)
     {
         return $this->issueRepo->getAllIssues();
     }

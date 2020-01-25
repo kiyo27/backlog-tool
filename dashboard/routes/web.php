@@ -11,10 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', 'Api\DashboardController@index');
 Route::get('/issues', 'Api\DashboardController@getIssues');
 Route::post('/api/issue/update', 'Api\DashboardController@update');

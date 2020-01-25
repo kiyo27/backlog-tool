@@ -1906,8 +1906,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -2012,10 +2010,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    categories: {
-      type: Array,
-      required: true
+  data: function data() {
+    return {
+      categoryList: []
+    };
+  },
+  mounted: function mounted() {
+    this.fetchCategories;
+  },
+  computed: {
+    fetchCategories: function fetchCategories() {
+      var _this = this;
+
+      axios.get('/api/categories').then(function (response) {
+        _this.categoryList = response.data;
+        return response.data;
+      });
+    }
+  },
+  methods: {
+    refresh: function refresh(e) {
+      e.preventDefault();
+      console.log('refresh');
     }
   }
 });
@@ -38267,12 +38283,7 @@ var render = function() {
       _c("div", { staticClass: "col sidenav" }, [_c("Sidenav")], 1),
       _vm._v(" "),
       _c("div", { staticClass: "col-10" }, [
-        _c(
-          "div",
-          { staticClass: "row" },
-          [_c("IssueFilter", { attrs: { categories: _vm.categoryList } })],
-          1
-        ),
+        _c("div", { staticClass: "row" }, [_c("IssueFilter")], 1),
         _vm._v(" "),
         _c(
           "div",
@@ -38367,10 +38378,10 @@ var render = function() {
             staticClass: "custom-select mr-sm-2",
             attrs: { id: "inlineFormCustomSelect" }
           },
-          _vm._l(_vm.categories, function(option, index) {
+          _vm._l(_vm.categoryList, function(option) {
             return _c(
               "option",
-              { key: index, domProps: { value: option.value } },
+              { key: option.id, domProps: { value: option.value } },
               [
                 _vm._v(
                   "\n                " + _vm._s(option.name) + "\n            "
@@ -38382,24 +38393,17 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "col-auto my-1" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", on: { click: _vm.refresh } },
+          [_vm._v("Submit")]
+        )
+      ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-auto my-1" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Submit")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

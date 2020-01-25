@@ -7,9 +7,7 @@
             </div>
             <div class="col-10">
                 <div class="row">
-                    <IssueFilter
-                        :categories="categoryList"
-                    ></IssueFilter>
+                    <IssueFilter/>
                 </div>
                 <div class="row">
                     <IssueList
