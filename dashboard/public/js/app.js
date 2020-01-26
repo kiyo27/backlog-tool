@@ -2009,10 +2009,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      categoryList: []
+      categoryList: [],
+      selected: ''
     };
   },
   mounted: function mounted() {
@@ -2031,7 +2033,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     refresh: function refresh(e) {
       e.preventDefault();
-      console.log('refresh');
+      console.log(this.selected);
     }
   }
 });
@@ -38375,21 +38377,52 @@ var render = function() {
         _c(
           "select",
           {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.selected,
+                expression: "selected"
+              }
+            ],
             staticClass: "custom-select mr-sm-2",
-            attrs: { id: "inlineFormCustomSelect" }
+            attrs: { id: "inlineFormCustomSelect" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selected = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
           },
-          _vm._l(_vm.categoryList, function(option) {
-            return _c(
-              "option",
-              { key: option.id, domProps: { value: option.value } },
-              [
-                _vm._v(
-                  "\n                " + _vm._s(option.name) + "\n            "
-                )
-              ]
-            )
-          }),
-          0
+          [
+            _c("option", { attrs: { disabled: "", value: "" } }, [
+              _vm._v("All")
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.categoryList, function(option) {
+              return _c(
+                "option",
+                { key: option.id, domProps: { value: option.name } },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(option.name) +
+                      "\n            "
+                  )
+                ]
+              )
+            })
+          ],
+          2
         )
       ]),
       _vm._v(" "),

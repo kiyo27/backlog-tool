@@ -24,7 +24,7 @@ class BacklogClient implements IssueRepository
         return $this->backlog;
     }
 
-    public function getAllIssues()
+    public function getIssues()
     {
         return $this->backlog->issues->load([]);
     }

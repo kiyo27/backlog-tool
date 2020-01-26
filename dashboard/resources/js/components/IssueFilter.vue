@@ -3,8 +3,9 @@
         <div class="form-row align-items-center">
             <div class="col-auto my-1">
             <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                <option v-for="option in categoryList" :key="option.id" :value="option.value">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="selected">
+                <option disabled value="">All</option>
+                <option v-for="option in categoryList" :key="option.id" :value="option.name">
                     {{ option.name }}
                 </option>
             </select>
@@ -21,7 +22,8 @@
 export default {
     data() {
         return {
-            categoryList: []
+            categoryList: [],
+            selected: '',
         }
     },
 
@@ -41,8 +43,7 @@ export default {
    methods: {
        refresh: function(e) {
            e.preventDefault();
-           console.log('refresh');
-           
+           console.log(this.selected)
        }
    }
 }

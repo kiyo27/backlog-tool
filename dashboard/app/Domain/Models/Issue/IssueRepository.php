@@ -4,7 +4,7 @@ namespace App\Domain\Models\Issue;
 
 interface IssueRepository
 {
-    public function getAllIssues();
+    public function getIssues();
 
     public function update($id, $status);
 }
